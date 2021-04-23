@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -37,5 +37,20 @@ public class BoardController {
     public ResponseEntity<List<Board>> getBoardLikeTitle(@PathVariable("title") String title ) {
         List<Board> board = boardService.findByTitleLike(title);
         return new ResponseEntity<List<Board>>(board, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/insertBoard")
+    public ResponseEntity<Map<String, Object>> insertBoard(@RequestBody Board reqBoardMap) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boardService.save(reqBoardMap);
+            response.put("returnCd", "0000");
+            response.put("returnMsg", "게시글 저장 완료.");
+        } catch (Exception ex) {
+            response.put("returnCd", "0001");
+            response.put("returnMsg", "게시글 저장 실패.");
+        }
+
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 }

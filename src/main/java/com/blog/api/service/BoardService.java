@@ -5,7 +5,9 @@ import com.blog.api.vo.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,5 +29,10 @@ public class BoardService {
     public List<Board> findByTitleLike(String title) {
         List<Board> board = boardRepository.findByTitleLike(title);
         return board;
+    }
+
+    @Transactional
+    public void save(Board reqBoard) {
+        boardRepository.save(reqBoard);
     }
 }
