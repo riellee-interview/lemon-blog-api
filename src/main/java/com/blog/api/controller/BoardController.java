@@ -1,8 +1,8 @@
 package com.blog.api.controller;
 
 import com.blog.api.service.BoardService;
-import com.blog.api.vo.BoardVo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.blog.api.vo.Board;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,26 +16,26 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("board")
+@RequiredArgsConstructor
 public class BoardController {
 
-    @Autowired
-    BoardService boardService;
+    private final BoardService boardService;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<BoardVo>> getAllBoard() {
-        List<BoardVo> board = boardService.findAll();
-        return new ResponseEntity<List<BoardVo>>(board, HttpStatus.OK);
+    public ResponseEntity<List<Board>> getAllBoard() {
+        List<Board> board = boardService.findAll();
+        return new ResponseEntity<List<Board>>(board, HttpStatus.OK);
     }
 
     @GetMapping(value = "/id/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<BoardVo> getBoard(@PathVariable("id") String id) {
-        Optional<BoardVo> board = boardService.findById(id);
-        return new ResponseEntity<BoardVo>(board.get(), HttpStatus.OK);
+    public ResponseEntity<Board> getBoard(@PathVariable("id") String id) {
+        Optional<Board> board = boardService.findById(id);
+        return new ResponseEntity<Board>(board.get(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/title/{title}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<BoardVo>> getBoardLikeTitle( @PathVariable("title") String title ) {
-        List<BoardVo> board = boardService.findByTitleLike(title);
-        return new ResponseEntity<List<BoardVo>>(board, HttpStatus.OK);
+    public ResponseEntity<List<Board>> getBoardLikeTitle(@PathVariable("title") String title ) {
+        List<Board> board = boardService.findByTitleLike(title);
+        return new ResponseEntity<List<Board>>(board, HttpStatus.OK);
     }
 }

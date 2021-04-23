@@ -8,7 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name="board")
-public class BoardVo {
+public class Board {
 
     @Id
     private String id;
