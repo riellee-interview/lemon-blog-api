@@ -4,9 +4,7 @@
 - Hibernate JPA Framework
 - SQL Server
 
-## Getting Started
-
-First, run the development server:
+## Infomation
 
 ```bash
 port : default(8080)
